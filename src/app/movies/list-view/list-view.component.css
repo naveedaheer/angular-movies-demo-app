@@ -1,0 +1,15 @@
+.card-style {
+  width: 60vw;
+  margin-bottom: 20px;
+}
+
+.mat-card-content {
+  height: 100%;
+}
+
+.description {
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

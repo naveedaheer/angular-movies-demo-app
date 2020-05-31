@@ -1,0 +1,36 @@
+<div fxLayoutAlign="center center">
+  <mat-card>
+    <div>
+      <a mat-button [routerLink]="['']" color="primary"><span class="material-icons">
+          arrow_back
+        </span> Back</a>
+    </div>
+
+    <mat-card-content *ngIf="movie" fxLayout="column" fxLayoutGap="20px">
+      <div fxLayoutAlign="center center">
+        <h1>{{movie.name}}</h1>
+      </div>
+      <div>
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/f0bd3a70488871.5ba4f0f2b38d3.jpg" height="400px"
+          width="800px">
+      </div>
+      <div fxLayoutAlign="center">
+        <table>
+          <tr>
+            <td>Duration </td>
+            <td>{{movie.duration}} Minutes</td>
+          </tr>
+          <tr>
+            <td> User Rating </td>
+            <td>{{movie.userRating}}</td>
+          </tr>
+          <tr>
+            <td>Description </td>
+            <td>{{movie.description}}</td>
+          </tr>
+        </table>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+</div>

@@ -1,0 +1,109 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+
+  <mat-card class="card-style">
+    <mat-card-content fxLayoutAlign="space-between center">
+      <div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <mat-form-field appearance="standard" class="search-input">
+            <input #serachText matInput placeholder="Search by movie name" (input)="search(serachText.value)">
+            <div matSuffix fxLayout="row" fxLayoutAlign="flex-end center">
+              <button mat-icon-button *ngIf="serachText.value.trim().length > 0" aria-label="Clear"
+                (click)="serachText.value = ''; filterResults = movies;" class="btn-sm clear">
+                <mat-icon class="">close</mat-icon>
+              </button>
+              <button mat-icon-button (click)="search(serachText.value)">
+                <mat-icon>search</mat-icon>
+              </button>
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+      <h1>Movies List View</h1>
+      <div>
+        <button mat-stroked-button (click)="listView=true" *ngIf="!listView">List View </button><button
+          mat-stroked-button (click)="listView=false" *ngIf="listView">Grid View</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <div *ngIf="listView" style="width: 80vw;">
+    <mat-card *ngFor="let movie of filterResults | slice: pageIndex * pageSize: (pageIndex + 1) * pageSize"
+      style="margin: 10px;">
+      <mat-card-content fxLayout="row" fxLayoutGap="100px">
+        <div>
+          <!-- <img
+            [src]="movie.imgPath ? movie.imgPath : 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/f0bd3a70488871.5ba4f0f2b38d3.jpg'"
+            width="300px"> -->
+            <img
+            src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/f0bd3a70488871.5ba4f0f2b38d3.jpg"
+            width="300px">
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-between">
+          <div>
+                <h3>
+                  {{movie.name}}
+                </h3>
+                <p>
+                  {{movie.duration}} mins
+                </p>
+                <p>
+                  User Rating: {{movie.userRating}}
+                </p>
+              <p class="description">
+                {{movie.description}}
+              </p>
+          </div>
+          <button mat-stroked-button color="primary" (click)="goToDetailView(movie.id)">View
+            Detail</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-paginator [length]="movies?.length" [pageSize]="pageSize" [pageSizeOptions]="[3, 5, 10, 25, 100]"
+      [pageIndex]="pageIndex" (page)="getPaginatorData($event)">
+    </mat-paginator>
+  </div>
+
+
+  <div *ngIf="!listView" style="width: 80vw;" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="50px">
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
+      <mat-card *ngFor="let movie of filterResults | slice: pageIndex * pageSize: (pageIndex + 1) * pageSize"
+        style="margin: 10px;">
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-between">
+          <div>
+            <!-- <img
+              [src]="movie.imgPath ? movie.imgPath : 'https://mir-s3-cdn-cf.behance.net/project_modules/fs/f0bd3a70488871.5ba4f0f2b38d3.jpg'"
+              width="300px"> -->
+              <img
+              src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/f0bd3a70488871.5ba4f0f2b38d3.jpg"
+              width="300px">
+          </div>
+          <div fxLayout="column">
+              <div>
+                <h3>
+                  {{movie.name}}
+                </h3>
+                <p>
+                  {{movie.duration}} mins
+                </p>
+                <p>
+                  User Rating: {{movie.userRating}}
+                </p>
+              </div>
+            <div>
+              <p class="description">
+                {{movie.description}}
+              </p>
+            </div>
+            <button mat-stroked-button color="primary" (click)="goToDetailView(movie.id)">View
+              Detail</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-paginator [length]="movies.length" [pageSize]="pageSize" [pageSizeOptions]="[3, 5, 10, 25, 100]"
+      [pageIndex]="pageIndex" (page)="getPaginatorData($event)">
+    </mat-paginator>
+
+  </div>
+</div>
